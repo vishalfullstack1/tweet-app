@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <title>{% block title %} Chai aur Django {% endblock %}</title>
+
+  <style>
+    /* Common image fix */
+    .img-fixed {
+      height: 50%;
+      object-fit: initial;
+      object-position: center;
+    }
+
+    /* Delete confirmation page styling */
+    .delete-card {
+      max-width: 500px;
+      width: 100%;
+      margin: 80px auto;
+      padding: 30px;
+      text-align: center;
+      border-radius: 15px;
+      background-color: #212529;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .delete-card h3 {
+      color: #dc3545;
+      margin-bottom: 15px;
+    }
+
+    .delete-card p {
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+
+    .delete-card button,
+    .delete-card a {
+      padding: 8px 25px;
+      font-size: 16px;
+      border-radius: 8px;
+    }
+
+    /* Footer Styling */
+    footer {
+      margin-top: 50px;
+      background-color: #111;
+      color: #ccc;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer a {
+      color: #0d6efd;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #66b2ff;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Tweetbar</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <ul class="dropdown-menu">
+          </ul>
+          </li>
+        </ul>
+        <!-- Search-bar -->
+        <form method="get" action="{% url 'tweet_list' %}" class="d-flex" role="search">
+          <input class="form-control me-2" type="search" name="q" placeholder="Search Tweets" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <!-- tweet-Home -->
+        <a href="{% url 'tweet_list' %}" class="btn btn-primary mx-2">Tweet Home</a>
+        {% if user.is_authenticated %}
+        <!-- logout-btn -->
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-danger" type="submit">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'register' %}" class="btn btn-primary mx-2">Register</a>
+        <a href="{% url 'login' %}" class="btn btn-success mx-2">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; {{ now|date:"Y" }} Tweetbar. All Rights Reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms of Service</a> |
+        <a href="#">Contact Us</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+
+</html>

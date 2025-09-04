@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Tweet Form
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center mt-5">
+    <div class="card p-4 shadow-lg" style="max-width: 600px; width: 100%; border-radius: 15px;">
+        {% if form.instance.pk %}
+            <h3 class="text-center text-primary mb-3">✏️ Edit Tweet</h3>
+        {% else %}
+            <h3 class="text-center text-success mb-3">📝 Create a New Tweet</h3>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="d-flex justify-content-between mt-3">
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-success">✅ Submit</button>
+
+                <!-- Go to Home Button -->
+                <a href="{% url 'tweet_list' %}" class="btn btn-secondary">🏠 Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

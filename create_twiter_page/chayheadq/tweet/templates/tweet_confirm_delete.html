@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete Tweet {% endblock %}
+
+{% block content %}
+<div class="delete-card">
+  <h3>⚠ Are you sure?</h3>
+  <p>Do you really want to delete this tweet? This action cannot be undone.</p>
+
+  <form method="post" class="d-flex justify-content-center gap-3">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="{% url 'tweet_list' %}" class="btn btn-success">Cancel</a>
+  </form>
+</div>
+{% endblock %}
